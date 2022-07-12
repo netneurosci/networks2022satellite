@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Network Neuroscience</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/quasar.min.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/animate.css@^3.5.2/animate.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+        <!-- <link rel="icon" type="image/svg+xml" href="./images/logo/dots.svg"> -->
+        <link
+            rel="icon"
+            sizes="any"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='rgb(139, 0, 0)'/%3E%3E%3Ccircle cx='6.8' cy='5' r='2' fill='rgb(255, 255, 255)'/%3E%3C/svg%3E"
+        >
+        <!-- <link
+            rel="icon"
+            sizes="any"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='rgb(0, 0, 70)'/%3E%3E%3Ccircle cx='6.8' cy='5' r='2' fill='rgb(255, 240, 0)'/%3E%3C/svg%3E"
+        > -->
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="./js/main.js"></script>
+    </head>
+
+    <style>
+        html, body {
+            margin:0;
+            padding:0;
+        }
+        a {
+            color: white;
+            font-weight: bold;
+        }
+        a:hover, a:focus, a:active {
+            color: #AAA;
+        }
+        .userIcon {
+            width: 32px;
+            height: 32px;
+            clip-path: circle(16px at center);
+        }
+        #userAvatar {
+            display: none;
+        }
+        .auth-dialog > div:first-child {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: rgba(0,0,0,0.5);
+            border: thin solid #777;
+            transform: translate(-50%, -50%);
+            z-index: 1050;
+        }
+        #loginStatus a {
+            border-bottom: none;
+            color: white;
+        }
+        #loginStatus a:hover {
+            /* border-bottom: 1px solid rgb(190, 181, 181); */
+            border-bottom: none;
+            color: grey;
+            opacity: 0.6;
+        }
+        #firebaseui-auth-container * {
+            font-size: 2rem;
+        }
+        #sign-in p {
+            font-weight: 300;
+        }
+        /* #text {
+            position: relative;
+            padding:1em;
+            padding-top: 5em;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(20,20,20,0), rgba(20,20,20,0.25), rgba(20,20,20,0.75), rgba(20,20,20,0.75),rgba(20,20,20,0));
+            z-index: 100;
+        } */
+        .textparagraph p {
+            width: 100%;
+            position:relative;
+            padding: 1rem;
+            /* background-image: linear-gradient(rgba(20,20,20,0), rgba(20,20,20,0.5), rgba(20,20,20,0.75), rgba(20,20,20,0.5),rgba(20,20,20,0)); */
+            background: rgba(0,0,0,0.3);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        #program p {
+            width: 100%;
+            position:relative;
+            margin: 0.3rem 0;
+            /* background-image: linear-gradient(rgba(20,20,20,0), rgba(20,20,20,0.5), rgba(20,20,20,0.75), rgba(20,20,20,0.5),rgba(20,20,20,0)); */
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        #program p blu {
+            color: #c0fefe;
+        }
+        #program pg {
+            width: 100%;
+            position:relative;
+            margin: 0.3rem 0;
+            /* background-image: linear-gradient(rgba(20,20,20,0), rgba(20,20,20,0.5), rgba(20,20,20,0.75), rgba(20,20,20,0.5),rgba(20,20,20,0)); */
+            line-height: 1.8;
+            font-weight: 300;
+            color: #aaaaaa;
+        }
+        #landinggraph a, #program a, #bestexperience a, #submit a, #register a {
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+        }
+        #landinggraph a:hover,
+        #landinggraph a:focus,
+        #landinggraph a:active,
+        #program a:hover,
+        #program a:focus,
+        #program a:active,
+        #bestexperience a:hover,
+        #bestexperience a:focus,
+        #bestexperience a:active,
+        #submit a:hover,
+        #submit a:focus,
+        #submit a:active,
+        #register a:hover,
+        #register a:focus,
+        #register a:active {
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            color: grey;
+        }
+        #organizers a {
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+        }
+        #organizers a:hover,
+        #organizers a:focus,
+        #organizers a:active {
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            color: grey;
+        }
+        #CoC p {
+            width: 100%;
+            position:relative;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        #CoC a {
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+        }
+        #CoC a:hover,#CoC a:focus,#CoC a:active {
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            color: grey;
+        }
+        h4 {
+            font-weight: 600;
+        }
+
+        /* first page container */
+        #community {
+            display:flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+
+            background-image: url("./images/landing/networkgraph_bg.jpg");
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            /* justify-content: space-around;
+            align-items: center; */
+            /* background-image: url("./images/landing/networkgraph_bg.jpg"); */
+        }
+        #conftitle h1 {
+            font-family: 'Roboto', sans-serif !important;
+            line-height: 1.2 !important;
+            letter-spacing: normal;
+            font-size: 6.8rem;
+            font-weight: 900;
+            opacity: 1.0;
+        }
+        #conftitle {
+            padding-top: 10vh;
+            padding-left: 5%;
+            flex-shrink: 1;
+            font-family: 'Roboto', sans-serif !important;
+            line-height: 1.2 !important;
+            letter-spacing: normal;
+            font-size: 4.8rem;
+            font-weight: 900;
+            opacity: 1.0;
+            background: none!important;
+            z-index:51;
+        }
+        #networkContainer {
+            flex-grow: 1;
+        }
+        #networkInfo {
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #AAA;
+            padding: 2% 3%;
+            font-size: 2rem;
+            text-align: right;
+            position: absolute;
+            bottom: 2%;
+            right: 2%;
+        }
+        #networkInfo a {
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 2rem;
+            background: rgba(1,1,1,.3);
+            padding: 10px;
+        }
+        #networkInfo a:hover, #networkInfo a:focus, #networkInfo a:active {
+            color: #AAA;
+        }
+        #network {
+            z-index: 50;
+            flex-grow: 1;
+            display: flex;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        @media only screen and (-webkit-max-device-pixel-ratio: 2) and (min-width: 900px) {
+            #network svg text {
+                font-size: 1.5rem !important;
+            }
+        }
+        #network svg {
+            flex-grow: 1;
+        }
+
+        @keyframes shinebrightlikeadiamond {
+            0% { stroke-width: 0; stroke-opacity: 1; }
+            70% { stroke-width: 10px; stroke-opacity: 0.5; }
+            100% { stroke-width: 0; stroke-opacity: 0; }
+        } 
+        #network svg circle.logged {
+            stroke-width: 0;
+            stroke: #DDD;
+            animation: shinebrightlikeadiamond 1s ease infinite;
+        }
+        #network svg .link {
+            stroke: #fff;
+            stroke-opacity: 0.2;
+        }
+        #network svg .name {
+            fill: rgb(255,255,255,0.3);
+            font-size: 0.7rem;
+        }
+        #network svg circle:hover + .name{
+            fill: rgb(255,255,255,1);
+        }
+        #network svg text {
+            cursor: default;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
+        #network svg text::selection {
+            background: none;
+        }
+        /* [v-cloak] {
+            display: none;
+        } */
+        .col a:hover, .col a:focus, .col a:active, .text-h6 a:hover, .text-h6 a:focus, .text-h6 a:active {
+            color: grey!important;
+        }
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        .col {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        #landinggraph {
+            padding-top: 3rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background_s.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #landinggraph p, #bestexperience p, #submit p, #register p, #organizers p {
+            background: none;
+            padding-top: 0.6rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        #program {
+            /* background: rgba(30,0,0,0.5); */
+            padding-bottom: 6rem;
+            background-color: rgba(0,0,0,0.0);
+            /* background: rgba(0,0,0,0.8); */
+            background-image: url('./images/landing/background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #program .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        #programTableContainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+        }
+        .programTableHeader {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            position: relative;
+        }
+        #programTableDays {
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+            width: 100%;
+            /* background-image: url('./images/landing/program_bg.jpg'); */
+        }
+        .programDayHeader {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            position: relative;
+            padding-bottom: 2rem;
+            /* background: rgba(255,255,255,0.8);
+            color: black;
+            padding-left: 1%; */
+        }
+        .programDayHeader p {
+            font-weight: 900!important;
+        }
+        #programDay1 {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            align-items: baseline;
+            padding-left: 1%;
+            padding-right: 1%;
+            padding-bottom: 1%;
+            /* padding-bottom: 1%; */
+            margin-right: 1%;
+            /* background: rgba(255,255,255,0.05); */
+            background: rgba(15,15,15,0.8);
+            /* border: thin solid white; */
+            flex-shrink: 1;
+        }
+        #programDay2 {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            align-items: baseline;
+            padding-right: 1%;
+            padding-left: 1%;
+            padding-bottom: 1%;
+            /* padding-bottom: 1%; */
+            margin-left: 1%;
+            /* background: rgba(255,255,255,0.05); */
+            background: rgba(15,15,15,0.8);
+            /* background: rgba(0,0,0,0.35); */
+            flex-shrink: 1;
+        }
+        .programSessionsEmpty {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            position: relative;
+            height: 0rem;
+            background: rgba(255,255,255,0.11);
+        }
+        /* .programSessions {
+            display: flex;
+            position: relative;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-start;
+            background: rgba(255,255,255,0.8);
+            color: black;
+            padding-left: 1%;
+        } */
+        .programTableContentUneven {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.3);
+            margin: 0px;
+            z-index: 1;
+        }
+        .programTableContentEven {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            margin: 0px;
+            z-index: 1;
+        }
+        .programTableContentUnevenContrib {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.18);
+            margin: 0px;
+            z-index: 1;
+        }
+        .programTableContentEvenContrib {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.13);
+            margin: 0px;
+            z-index: 1;
+        }
+        @media (max-width: 900px) {
+            .programTableContentUnevenContrib {
+                flex-direction: column;
+            }
+            .programTableContentEvenContrib {
+                flex-direction: column;
+            }
+            .programTableContentUnevenContrib > div:nth-child(1) > p {
+                font-weight: bold !important;
+            }
+            .programTableContentEvenContrib > div:nth-child(1) > p {
+                font-weight: bold !important;
+            }
+        }
+        .programTableItems {
+            border: 0;
+            flex: 1 1 100%;
+            position: relative;
+            margin: 0.5rem;
+        }
+        #programDay1 p {
+            background: none;
+        }
+        #programDay2 p {
+            background: none;
+        }
+        .programSessions {
+            display: flex;
+            position: relative;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-start;
+            background: rgba(255,255,255,0.8);
+            color: black;
+            padding-left: 1%;
+        }
+        .programSessionInfo {
+            display: flex;
+            position: relative;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-start;
+            background: rgba(255,255,255,0.18);
+            color: white;
+            padding-left: 1%;
+        }
+        #bestexperience {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background_s.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #bestexperience b {
+            font-weight: 600;
+        }
+        #posterlist p {
+            line-height: 1.3;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-top: 2rem;
+            padding-left:3rem;
+        }
+        .posterUneven {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.3);
+            margin: 0px;
+            z-index: 1;
+        }
+        .posterEven {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            align-content: space-between;
+            position: relative;
+            /* width: calc( 100% - 10px ); */
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            margin: 0px;
+            z-index: 1;
+        }
+        #posterlist {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(0%) contrast(100%) opacity(80%);
+            -webkit-filter: grayscale(0%) contrast(100%) opacity(100%);
+        }
+        #submit {
+            /* background: rgba(220, 220, 220, 0.1); */
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background_s.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #submit li {
+            background: none;
+            /* padding-top: 0.6rem; */
+            line-height: 1.8;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        #register {
+            /* background: rgba(0, 0, 0, 0.1); */
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #organizers {
+            /* background: rgba(220, 220, 220, 0.1); */
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: rgba(0,0,0,0.8);
+            background-image: url('./images/landing/background_s.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-position: center;
+            filter: grayscale(50%) contrast(150%) opacity(30%);
+            -webkit-filter: grayscale(80%) contrast(150%) opacity(100%);
+        }
+        #organizerColumns {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            position: relative;
+            /* background: rgba(150,150,150,0.1); */
+        }
+        #organizerColumnLeft {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            align-items: baseline;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-right: 2%;
+            /* background: rgba(150,150,150,0.1); */
+        }
+        #organizerColumnRight {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            align-items: baseline;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 2%;
+            /* background: rgba(150,150,150,0.1); */
+        }
+        /* #organizerCardContainer {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            align-items: baseline;
+            padding-left: 1%;
+            padding-right: 1%; */
+            /* margin-right: 1%; */
+            /* background: rgba(150,150,150,0.1); */
+        /* } */
+        .organizerCard {
+            flex: 1 1 25%;
+            padding: 1%;
+            position: relative;
+            /* background: rgba(15,15,15,0.1); */
+            /* margin: 1%; */
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+    <body>
+        <!-- navigation bar -->
+        <!-- data value of nav bar corresponds to id in each section -->
+        <nav class="navbar navbar-expand-lg fixed-top ">
+
+
+            <button class="navbar-toggler landing-page myCollapsedMenuBarIcon" id="myMenuBtn" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation" style="padding:0;border:none; width:1.5em;height:1.5em;" onclick="this.blur();">
+            </button>
+
+            <div class="collapse navbar-collapse" id="myMenu" style="width:100%;">
+                <ul class="navbar-nav mr-4" >
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/">NetNeurosci</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-value="landinggraph" href="#">About</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-value="program" href="#">Program</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-value="submit" href="#">Submit</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-value="posterlist" href="#">Posterlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./posterwall/">Posterwall</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" data-value="register" href="#">Register</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="./videoconference/">Videoconference</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <span class="nav-link" id="loginStatus" style="border-bottom:none"></span>
+                    </li>
+                    <li class="nav-item" id="userAvatar">
+                        <img class="userIcon"/>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="q-app">
+
+            <!-- part 1: Community network : Network Neuroscience community -->
+            <div id="community">
+                <div id="conftitle">
+                    <h1>Network Neuroscience</h1>
+                </div>
+
+                <div id="networkContainer">
+                    <div id="network"></div>
+                    <div id="networkInfo" v-if="!spinning && !userSignedIn">
+                        <a href="#" onclick="signIn(app)">Join the network!</a>
+                    </div>
+                </div>
+
+                <q-spinner-ball
+                    color="white"
+                    size="4em"
+                    v-if="spinning"
+                    style="position:absolute;top:50%;left:50%;transform: translate( -50%, -50%);z-index:1000"
+                >
+                </q-spinner-ball>
+
+                <q-dialog v-model="displaySignIn" id="sign-in">
+                    <q-card>
+                        <q-card-section>
+                            <p>
+                            This is the <strong>Network Neuroscience</strong> community graph.
+                            Add yourself to the graph by signing in with GitHub,
+                            add your skills to take your place in the network graph.
+                            </p>
+                            <p>
+                            The Network Neuroscience
+                            community is part of the larger <a href="https://brain-web.github.io">BrainWeb community</a>
+                            and you can explore your connections within the wider network.
+                            </p>
+                            <p class="disclaimer">Please note that this is not a sign in/registration to the conference.</p>
+                            <div id="firebaseui-auth-container"></div>
+                        </q-card-section>
+                    </q-card>
+                </q-dialog>
+
+                <div class="container" style="margin-top: 0">
+
+                    <div v-cloak v-if="!spinning" class="row">
+                        <!-- Person's card -->
+                        <div v-if="cardDisplayName !== userDisplayName">
+                            <q-dialog v-model="displayCard">
+                                <q-card style="height:400px;width:400px">
+                                    <q-card-section>
+                                        <q-chip>
+                                            <q-avatar round size="48px">
+                                                <img :src="`https://avatars3.githubusercontent.com/u/${cardUID}?v=4`" />
+                                            </q-avatar>
+                                            <a v-cloak v-if="!spinning" class="col text-h6" :href="`https://github.com/${cardGitHubName}`">
+                                                {{cardDisplayName}}
+                                            </a>
+                                        </q-chip>
+                                    </q-card-section>
+                                    <q-card-section style="background: hsla(0,0%,100%,0.07);border-radius:4px 4px 0 0;margin:16px">
+                                        <q-chip v-cloak v-if="!spinning" color="dark" v-for="skill in cardSkills">
+                                            {{skill}}
+                                        </q-chip>
+                                    </q-card-section>
+                                </q-card>
+                            </q-dialog>
+                        </div>
+                        <div v-else>
+                            <q-dialog v-model="displayCard" @hide="draw">
+                                <q-card style="height:400px;width:400px">
+                                    <q-card-section>
+                                        <q-chip>
+                                            <q-avatar round size="48px">
+                                                <img :src="`https://avatars3.githubusercontent.com/u/${uid}?v=4`" />
+                                            </q-avatar>
+                                            <a v-cloak v-if="!spinning" class="col text-h6" :href="`https://github.com/${userGitHubName}`">
+                                                {{userDisplayName}}
+                                            </a>
+                                        </q-chip>
+                                    </q-card-section>
+                                    <q-card-section>
+                                        <q-select
+                                            label="Skills"
+                                            filled
+                                            v-model="people[people.map((o)=>o.uid).indexOf(uid)].skills"
+                                            use-input
+                                            use-chips
+                                            multiple
+                                            hide-dropdown-icon
+                                            input-debounce="0"
+                                            new-value-mode="add-unique"
+                                            :options="options"
+                                            @filter="filterFn"
+                                            @new-value="createValue"
+                                        ></q-select>
+                                    </q-card-section>
+                                </q-card>
+                            </q-dialog>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- </div> -->
+
+
+           
+
+
+            <!-- part 2.5 best experience -->
+            <!-- <div v-cloak v-if="!spinning" class="row" id="bestexperience">
+                <div v-cloak v-if="!spinning" class="container" style="background: rgba(0,0,0,0.3);">
+                    <h4 style="color: #00ff7b;">How to get the best conference experience</h4>
+                    <div v-cloak v-if="!spinning" class="row">
+
+                        <div id="programTableContainer">
+                            <div class="programTableDescription" style="padding-bottom:2rem;">
+                                <p>
+                                    <b style="color: #00ff7b;">LogIn please  </b>&nbsp;<span style="font-size:40px;">🗝</span><br />
+                                    Go to the<a href="https://netneurosci.github.io/networks2021satellite"> main page</a> and log in with GitHub. This will not only add you into the network graph of network neuroscience enthusiasts 💛 but also allow you to chat with attendees on the posterwall page.<br />
+                                    If you do not have a GitHub account yet, you can easily create one at <a href="https://github.com">https://github.com</a>, providing your email address, user name and real name (full name is not obligatory but we recommend it.)
+                                </p>
+                                <p>
+                                    <b style="color: #00ff7b;">Chat  </b></b>&nbsp;<span style="font-size:40px;">💬</span><br />
+                                    When you click on the <a href="https://netneurosci.github.io/networks2021satellite/posterwall">posterwall tab</a>, you will see the chat window on the side of the posterwall. You will be part of the "main room" chat window to interact with all participants. This chat will be available beyond the conference. You can also search for attendees to send them a direct message.
+                                </p>
+                                <p>
+                                    <b style="color: #00ff7b;">Poster video chat rooms  </b>&nbsp;<span style="font-size:40px;">🎥</span><br />
+                                    will be linked from that same page once the conference is running, and posters where people are connected will be highlighted on the posterwall, showing a little number of how many people are connected to the poster. We recommend to use Chrome browser as the rooms rely on jitsi. But other browsers should work fine as well.<br />
+                                    In your poster room, you can video chat with people, and also share your screen for additional or interactive content. You could, for example, open your poster and walk people through. Note: the chat will currently not be saved once you leave the room. Work in progress to have a persistent poster room chat 🤩.<br />
+                                    🎥 🎥 You can have several poster rooms open simultaneously. Each room will open in a new tab. This allows you, for example, to keep an eye on your own room while visiting other posters and either inviting interested guests from your own poster to another room first, and then hop over to yours together later, or just quit the other room and join your visitor. Important: Just make sure you are <b>muted in all but one</b> of the jitsi rooms. 
+                                </p>
+                            </div>
+
+                        </div> -->
+                        <!--programTableContainer-->
+
+                    <!-- </div> -->
+                    <!--row of best experience section-->
+
+                <!-- </div> -->
+                <!--container of best experience section-->
+
+            <!-- </div> -->
+            <!--best experience div-->
+
+
+            <!-- part 2.75 poster list -->
+            <div v-cloak v-if="!spinning" class="row" id="posterlist">
+                <div v-cloak v-if="!spinning" class="container" style="background: rgba(0,0,0,0.8);">
+                    <h4 style="color: #ffffff;padding-top:3em;padding-left:3rem;padding-bottom:3rem;">Posters at the Network Neuroscience 2022 satellite</h4>
+                    <div v-cloak v-if="!spinning" class="row">
+
+                        <div id="programTableContainer">
+                            <div class="programTableDescription" style="padding-bottom:3rem;">
+                                <p style="color: #ffffff;margin-bottom:3rem;">
+                                    Here is a list of all posters, alphabetically sorted. Click on the poster to open it in its exact position on the posterwall.<br /><br />
+                                </p>
+
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.12003356027426612&y=0.07417760806577856" style=color:rgba(255,255,255,1.0);font-weight:300;>Bradly Alicea  Circuitous connectome modeling for developing sensorimotor complexity</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.3773288533444291&y=0.07518569188173414" style=color:rgba(255,255,255,0.7);font-weight:300;>Prerna Dash  A Neurological Study on Frontal Brain Asymmetry in Major Depressive Disorder</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.628607469369404&y=0.07490164616563626" style=color:rgba(255,255,255,1.0);font-weight:300;>Cole Korponay et al.  The Temporal Organization of Corticostriatal Communications</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.8458714119800791&y=0.07209619744025408" style=color:rgba(255,255,255,0.7);font-weight:300;>Leonardo Novelli et al.  Edge-centric funtional connectivity properties can be explained by static null models</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.15001271583969233&y=0.27312736498137213" style=color:rgba(255,255,255,1.0);font-weight:300;>Raimundo Rodriguez et al.  Edge-centric network-level procedure improves statistical power in the functional connectome</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.224862719999999&x=0.3258330358730212&y=0.27566945479350907" style=color:rgba(255,255,255,0.7);font-weight:300;>Vishnu Pratap Singh Kirar et al.  DeepEEG: Epilepsy Detection and Clinical Decision- Support System for Infants</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.73248&x=0.6412188602901437&y=0.26761109309333675" style=color:rgba(255,255,255,1.0);font-weight:300;>Vaibhav Tripathi et al.  Alpha and Beta peak frequency shift associated with Default Mode and Dorsal Attention Network functional connectivity</a><br />
+                                </p>
+                                <p>
+                                    <a href="https://netneurosci.github.io/networks2022satellite/posterwall/#zoom=3.73248&x=0.875246254932665&y=0.2682765334371739" style=color:rgba(255,255,255,0.7);font-weight:300;>Qihang Yao et al.  TRACED: The Root-cause of Activation Cascade Differences in Brain Networks</a><br />
+                                </p>
+
+                            </div>
+
+                        </div> <!--programTableContainer-->
+
+                    </div> <!--row of best experience section-->
+
+                </div> <!--container of best experience section-->
+
+            </div> <!--best experience div-->
+
+
+            <!-- part 5 Organisers -->
+            <!-- <div v-cloak v-if="!spinning" class="row" id="organizers">
+                <div v-cloak v-if="!spinning" class="container" style="background: rgba(0,0,0,0.2);">
+                    <h4>Team of organizers</h4>
+                    <div v-cloak v-if="!spinning" class="row">
+
+                        <div id="programTableContainer">
+                            <div class="programTableDescription" style="padding-bottom:2rem;">
+                                <div id="organizerColumns">
+                                    <div id="organizerColumnLeft">
+                                        <div class="organizerCard">
+                                            <p>
+                                                <img src="" href="https://twitter.com/richardfbetzel"></img><a href="https://psych.indiana.edu/directory/faculty/betzel-richard.html">Richard Betzel</a> (Indiana University, USA)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/richardfbetzel"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@richardfbetzel</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://sites.google.com/site/devicofallanifabrizio">Fabrizio De Vico Fallani</a> (Inria & Institut du Cerveau et de la Moelle Épinière, France)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/F_DeVicoFallani"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@F_DeVicoFallani</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://www.researchgate.net/profile/Katja-Heuer-2">Katja Heuer</a> (University of Paris & Max Planck Institute)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/katjaQheuer"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@katjaqheuer</a></p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://users.ugent.be/~dmarinaz">Daniele Marinazzo</a> (UGhent, Belgium)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/dan_marinazzo"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@dan_marinazzo</a>
+                                            </p>
+                                        </div> -->
+
+                                    <!-- </div> -->
+                                    <!--organizerColumn left-->
+                                    <!-- <div id="organizerColumnRight">
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://anibalsolon.com">Anibal Sólon</a> (UTexas, USA)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/anibalsolon"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@anibalsolon</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://psych.indiana.edu/faculty/osporns.php">Olaf Sporns</a> (Indiana University, USA)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/spornslab"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@spornslab</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://neuroanatomy.github.io">Roberto Toro</a> (Institut Pasteur, France) <br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/R3RT0"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@R3RT0</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p>
+                                                <a href="https://emmatowlson.github.io">Emma Towlson</a> (University of Calgary, USA)<br/>
+                                                <a style="font-weight: 300;" href="https://twitter.com/towlsonek"><img style="width:1.8rem;transform:translate(0,0px);margin-right:5px;" src="./images/landing/twitter_white.png" /img>@towlsonek</a>
+                                            </p>
+                                        </div>
+                                        <div class="organizerCard">
+                                            <p><a href="https://www.researchgate.net/profile/Robin-Wilkins">Robin Wilkins</a> (University of North Carolina-Greensboro, USA) </p>
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <!--organizerColumn right-->
+                                <!-- </div> -->
+                                <!--organizerColumns-->
+                            <!-- </div> -->
+                             <!--programTableDescription-->
+
+                        <!-- </div>  -->
+                        <!--programTableContainer-->
+
+                    <!-- </div> -->
+                     <!--row of organizer section-->
+
+                <!-- </div> -->
+                 <!--container of organizer section-->
+
+            <!-- </div>  -->
+            <!--organizers div-->
+
+
+
+            <!-- footer -->
+            <div class="row" id="CoC" v-if="!spinning" style="width:100%; position:relative; bottom:0px; margin:0;padding-top:1%;border:0; color:white; background:#111111;">
+                <p style="text-align: center; font-size: 1.4rem; width: 100%">Made with love &nbsp; ❤ &nbsp; Please respect the <a href="https://github.com/netneurosci/networks2021satellite/blob/main/CoC.md" target="_blank">NetNeurosci Code of Conduct.</a></p>
+            </div>
+
+
+
+        </div> <!--q-app-->
+
+        <div id="dpi" style="height: 1in;left: -100%;position: absolute;top: -100%;width: 1in;"></div>
+
+        <script src="./js/sentry.min.js" data-lazy="no"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- <script src="./js/main.js"></script> -->
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/quasar.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/icon-set/svg-material-icons.umd.min.js"></script>
+
+        <script defer src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+        <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+        <script defer src="./js/init-firebase.js"></script>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="./community/brainweb.js"></script>
+        
+        <script type="module">
+
+            const circleName = "BrainWeb";
+            const skill =  "netneurosci";
+            const filterSkills = ["graph theory", "Network Neuroscience", "multiplex", "Multilayer", "Networkx", "Complex networks", "Network theory", "Circuit dynamics", "Systems neuroscience", skill];
+            const skills = [];
+
+            function arr2dic(arr) {
+                const dic = {};
+                for(let item of arr) {
+                    const {uid} = item;
+                    dic[uid] = {}
+                    for(let key of Object.keys(item)) {
+                        if(key !== "uid") {
+                            dic[uid][key] = item[key];
+                        }
+                    }
+                }
+                return dic;
+            }
+
+            function dic2arr(dic) {
+                const arr = [];
+                for(let uid of Object.keys(dic)) {
+                    const item = {uid};
+                    for(let key of Object.keys(dic[uid])) {
+                        if(key!==uid) {
+                            item[key] = dic[uid][key];
+                        }
+                    }
+                    arr.push(item);
+                }
+                return arr;
+            }
+
+            function update(databaseDic) {
+                if(app.uid === null) {
+                    app.spinning = false;
+                    return;
+                }
+
+                const { uid } = app;
+                const str = databaseDic[uid];
+                const obj = {};
+                obj[uid] = str;
+                firebase.database().ref(`circles/${circleName}`)
+                    .update(obj)
+                    .then(function(snapshot) {
+                        app.spinning = false;
+                        console.log('update: success');
+                    }, function(error) {
+                        app.spinning = false;
+                        Sentry.captureException(error);
+                        console.log('update: error', error);
+                    });
+            }
+
+            function listen() {
+                var circles = firebase.database().ref(`circles/${circleName}`);
+                circles.on('value', async (s) => {
+                    var circle = s.val();
+                    if(circle === null) {
+                        return;
+                    }
+
+                    databaseDicToPeopleArr(circle);
+                    addCurrentUser();
+
+                    const filteredPeople = 
+                        app.people.filter(
+                            (p) => (p.skills || []).some(
+                                (s) => filterSkills.includes(s?.toLowerCase() || false)
+                            )
+                        )
+
+                    console.log("Number of people in the graph:", filteredPeople.length);
+
+                    if(filteredPeople.length > 15) {
+                        await addBrainWebToElement(
+                            "#network",
+                            filteredPeople,
+                            app.userDisplayName,
+                            (user) => {
+                                app.displayCard = true;
+                                app.cardDisplayName = filteredPeople[user.index].displayname;
+                                app.cardGitHubName = filteredPeople[user.index].username;
+                                app.cardUID = filteredPeople[user.index].uid;
+                                app.cardSkills = filteredPeople[user.index].skills;
+                            }
+                        );
+                    } else {
+                      console.log("Graph too small to proceed", filteredPeople.length);
+                    }
+                    app.spinning = false;
+
+                    setTimeout(() => {
+                        const p1 = document.getElementById('programDay1');
+                        const p1Header = p1.getElementsByClassName('programDayHeader')[0];
+                        const p2 = document.getElementById('programDay2');
+                        const p2Header = p2.getElementsByClassName('programDayHeader')[0];
+
+                        const before = document.getElementById('programDay1Before');
+                        const after = document.getElementById('programDay2After');
+
+                        function reworkTable() {
+                            before.style.height = '0px';
+                            after.style.height = '0px';
+
+                            const beforeSize = (p2.clientHeight - p2Header.clientHeight);
+                            const afterSize = (p1.clientHeight - p1Header.clientHeight);
+
+                            before.style.height = beforeSize + 'px';
+                            after.style.height = afterSize + 'px';
+                        }
+
+                        window.addEventListener('resize', reworkTable);
+                        reworkTable();
+                    }, 500);
+
+                });
+            }
+
+            function databaseDicToPeopleArr(databaseDic) {
+                const oldPeople = app.people;
+
+                const incomingPeopleDic = databaseDic;
+                const incomingPeopleArr = dic2arr(incomingPeopleDic);
+                const newPeople = incomingPeopleArr.filter((person) => {
+                    const oldUIDs = oldPeople.map((o)=> o.uid);
+                    const includes = !(oldUIDs.includes(person.uid));
+                    return includes;
+                });
+                for(let p of newPeople) {
+                    if(typeof p.skills === "undefined") {
+                        p.skills = [];
+                    }
+                    if(typeof p.displayname === "undefined") {
+                        p.displayname = p.username;
+                    }
+                    for(let s of p.skills) {
+                        if(!skills.includes(s)) {
+                            skills.push(s);
+                        }
+                    }
+                    app.people.push(p);
+                }
+            }
+
+            function peopleArrToDatabaseDic(peopleArr) {
+                const arr = [];
+                for(let p of peopleArr) {
+                    arr.push(JSON.parse(JSON.stringify(p)));
+                }
+                const dic = arr2dic(peopleArr)
+                update(dic);
+            }
+
+            /**
+             * fetch user information given the GitHub user id number
+             */
+            async function fetchUserInfoFromGitHub(uid) {
+                let json, res;
+                try {
+                    res = await fetch(`https://api.github.com/user/${uid}`);
+                    json = await res.json();
+                } catch (err) {
+                    throw new Error(err);
+                }
+                return json;
+            }
+            // add it to the window element so that init-firebase.js can see it
+            window.fetchUserInfoFromGitHub = fetchUserInfoFromGitHub;
+
+            async function addCurrentUser() {
+                if(app.uid === null) {
+                    return;
+                }
+
+                const index = app.people.map((o)=>o.uid).indexOf(app.uid);
+
+                let isNewUser = (index === -1);
+                let isUserWithoutDisplayName = (typeof app.userDisplayName === "undefined");
+                if (isNewUser || isUserWithoutDisplayName) {
+                    const {login} = await fetchUserInfoFromGitHub(app.uid);
+                    const userDisplayName = app.userDisplayName || login;
+                    app.userDisplayName = userDisplayName;
+                    app.userGitHubName = login;
+                    if (isNewUser) {
+                        app.people.push({
+                            displayname: userDisplayName,
+                            username: login,
+                            uid: app.uid,
+                            skills: [skill]
+                        });
+                    }
+                    peopleArrToDatabaseDic(app.people);
+                } else {
+                    if (!app.people[index].skills.map((s) => s.toLowerCase()).includes(skill)) {
+                        app.people[index].skills.push(skill);
+                        peopleArrToDatabaseDic(app.people);
+                    }
+                    app.userGitHubName = app.people[index].username;
+                }
+
+                document.getElementById('user').addEventListener(
+                    'click',
+                    function () {
+                        app.displayCard = true;
+                        app.cardDisplayName = app.people[index].displayname;
+                        app.cardGitHubName = app.people[index].username;
+                        app.cardUID = app.people[index].uid;
+                        app.cardSkills = app.people[index].skills;
+                    }
+                )
+            }
+
+            Quasar.Dark.set(true);
+
+            const app = window.app = new Vue({
+                el: '#q-app',
+                data () {
+                    return {
+                        people: [],
+                        spinning: true,
+                        options: skills,
+                        userSignedIn: false,
+                        uid: null,
+                        userDisplayName: null,
+                        userGitHubName: "",
+                        userPicture: null,
+                        displayCard: false,
+                        displaySignIn: false,
+                        cardDisplayName: "",
+                        cardGitHubName: "",
+                        cardUID: "",
+                        cardSkills: []
+                    }
+                },
+                methods: {
+                    filterFn (val, update, abort) {
+                        update(() => {
+                            const needle = val.toLowerCase()
+                            this.options = skills.filter(v => v.toLowerCase().indexOf(needle) > -1)
+                        })
+                    },
+                    createValue (val, done) {
+                        skills.push(val)
+                        done(val)
+                    },
+                    deletePerson (e, index) {
+                        this.people.splice(index,1)
+                        event.stopPropagation()
+                    },
+                    draw (e) {
+                        app.spinning = true;
+                        peopleArrToDatabaseDic(this.people);
+                    },
+                    goTo (url) {
+                        window.location = url
+                    }
+                }
+            });
+            window.addEventListener('load', () => {
+                listen()
+            })
+        </script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSPQ6DP1LY"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-CSPQ6DP1LY');
+        </script>
+
+    </body>
+</html>

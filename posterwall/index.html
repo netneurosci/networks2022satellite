@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NetNeurosci Wall of Poster</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/quasar.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@^3.5.2/animate.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link
+      rel="icon"
+      sizes="any"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='rgb(139, 0, 0)'/%3E%3E%3Ccircle cx='6.8' cy='5' r='2' fill='rgb(255, 255, 255)'/%3E%3C/svg%3E"
+    >
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <style id="svg-style">
+      .g {
+        transform: scale(1);
+      }
+    </style>
+  </head>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/openseadragon@2.4/build/openseadragon/openseadragon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/openseadragon/bookmark-url/openseadragon-bookmark-url.js"></script>
+
+  <body>
+
+    <!-- navigation bar -->
+    <!-- data value of nav bar corresponds to id in each section -->
+    <nav class="navbar navbar-expand-lg fixed-top ">
+
+
+      <button class="navbar-toggler landing-page myCollapsedMenuBarIcon" id="myMenuBtn" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation" style="padding:0;border:none; width:1.5em;height:1.5em;" onclick="this.blur();">
+      </button>
+
+      <div class="collapse navbar-collapse" id="myMenu" style="width:100%;">
+        <ul class="navbar-nav mr-4" >
+          <li class="nav-item">
+              <a class="nav-link" href="../#landinggraph">Network Neuroscience</a>
+          </li>
+          <!-- <li class="nav-item">
+              <a class="nav-link" href="../#program">Program</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-value="submit" href="../#">Submit</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="../#register">Register</a>
+          </li> -->
+          <li class="nav-item">
+            <span class="nav-link" id="loginStatus" style="border-bottom:none"></span>
+          </li>
+          <li class="nav-item" id="userAvatar">
+              <img class="userIcon"/>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- posters -->
+    <div id="openseadragon1">
+      <svg id="svg"
+        viewbox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"
+        style="border:1px solid green;position:absolute; z-index:1;pointer-events:none">
+      </svg>
+
+      <div style="position:absolute; display:block; top:calc(150px + 10px); right:5px; width:300px; z-index:1;background:rgba(0,0,0,0.2)"> <!--height:calc(100% - 150px - 15px);-->
+        <div id="firechat-wrapper" style="z-index:10">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </body>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/quasar.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.9.10/dist/icon-set/svg-material-icons.umd.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+
+  <script src="index.js"></script>
+
+  <script defer src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+  <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+  <script defer src="../js/init-firebase.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+  <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
+
+</html>
